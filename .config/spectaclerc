@@ -1,8 +1,12 @@
 [$Version]
 update_info=spectacle_newConfig.upd:spectacle-new-config
 
+[General]
+last-saved-to[$e]=/tmp
+
 [GuiConfig]
 captureDelay=5
+cropRegion=153,126,709,431
 window-position=195,191
 
 [Save]

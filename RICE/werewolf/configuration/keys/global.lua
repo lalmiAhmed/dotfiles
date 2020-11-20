@@ -60,7 +60,7 @@ awful.key({modkey}, 'l', function() awful.spawn(apps.default.lock) end,
 awful.key({'Control', 'Shift'}, 'Print', function()
     awful.util.spawn_with_shell(apps.default.delayed_screenshot)
 end, {
-    description = 'Mark an area and screenshot it 10 seconds later (clipboard)',
+    description = 'Mark an area and screenshot it (clipboard)',
     group = 'screenshots (clipboard)'
 }), awful.key({altkey}, 'Print', function()
     awful.util.spawn_with_shell(apps.default.screenshot)
@@ -130,7 +130,7 @@ awful.key({modkey, 'Control'}, 'n', function()
     end
 end, {description = 'restore minimized', group = 'client'}),
 -- Dropdown application
-awful.key({modkey}, 'z', function() _G.toggle_quake() end,
+awful.key({altkey, 'Control'}, 'k', function() _G.toggle_quake() end,
           {description = 'dropdown application', group = 'launcher'}),
 -- Widgets popups
 --[[awful.key(
@@ -161,12 +161,14 @@ awful.key({}, 'XF86MonBrightnessDown',
           function() awful.spawn('xbacklight -dec 10') end,
           {description = '-10%', group = 'hotkeys'}), -- ALSA volume control
 awful.key({}, 'XF86AudioRaiseVolume', function()
-    awful.spawn('amixer -D pulse sset Master 5%+')
-    _G.update_volume()
+    awful.spawn.easy_async('amixer -D pulse sset Master 5%+', function() 
+        _G.update_volume()
+    end)
 end, {description = 'volume up', group = 'hotkeys'}),
 awful.key({}, 'XF86AudioLowerVolume', function()
-    awful.spawn('amixer -D pulse sset Master 5%-')
-    _G.update_volume()
+    awful.spawn.easy_async('amixer -D pulse sset Master 5%-', function()
+        _G.update_volume()
+    end)
 end, {description = 'volume down', group = 'hotkeys'}),
 awful.key({}, 'XF86AudioMute', function()
     awful.spawn('amixer -D pulse set Master 1+ toggle')
@@ -246,3 +248,4 @@ for i = 1, 9 do
 end
 
 return globalKeys
+

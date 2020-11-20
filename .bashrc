@@ -174,10 +174,9 @@ parse_git_branch() {
   # Short form
   # git rev-parse --abbrev-ref HEAD 2> /dev/null | sed -e 's/.*\/\(.*\)/\1/'
 }
-PS1="\[\e[1;49;34m\]@\u\[\e[00m\]\[\e[01;49;39m\]\[\e[00m\] \[\e[1;49;31m\]\W\[\e[0m\]"
+PS1="\[\e[1;49;34m\]@\u\[\e[00m\]\[\e[01;49;39m\]\[\e[00m\] \[\e[1;49;31m\]\w\[\e[0m\]"
 PS1+=" (git: \e[1;50;35m\]\$(parse_git_branch)\[\033[34m\]\$(parse_git_dirty)\[\033[00m\])"
 PS1+="\n \[\033[32m\]➜\[\e[0m\]  "
 export PS1
 
-
-alias pip=pip3
+# alias pip=pip3

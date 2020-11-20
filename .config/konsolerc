@@ -14,8 +14,12 @@ ShowMenuBarByDefault=false
 
 [MainWindow]
 MenuBar=Disabled
-State=AAAA/wAAAAD9AAAAAAAABRYAAAK3AAAABAAAAAQAAAAIAAAACPwAAAAA
+State=AAAA/wAAAAD9AAAAAAAABU4AAALUAAAABAAAAAQAAAAIAAAACPwAAAAA
 ToolBarsMovable=Disabled
 
 [Notification Messages]
 CloseAllTabs=true
+
+[TabBar]
+ShowQuickButtons=true
+TabBarVisibility=ShowTabBarWhenNeeded

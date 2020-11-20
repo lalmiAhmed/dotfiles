@@ -1,8 +1,8 @@
 [Appearance]
 AntiAliasFonts=true
-BoldIntense=false
+BoldIntense=true
 ColorScheme=Dracula
-Font=Source Code Pro for Powerline,10,-1,5,50,0,0,0,0,0
+Font=Source Code Pro for Powerline,11,-1,5,50,0,0,0,0,0
 UseFontLineChararacters=false
 
 [Cursor Options]

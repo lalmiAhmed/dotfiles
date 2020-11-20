@@ -11,10 +11,10 @@ local rofi_command = 'env /usr/bin/rofi -dpi ' .. get_dpi() .. ' -width ' ..
 return {
     -- List of apps to start by default on some actions
     default = {
-        terminal = 'env termite',
+        terminal = 'env konsole',
         rofi = rofi_command,
         lock = 'i3lock-fancy',
-        quake = 'termite',
+        quake = 'konsole',
         screenshot = '~/.config/awesome/configuration/utils/screenshot -m',
         region_screenshot = '~/.config/awesome/configuration/utils/screenshot -r',
         delayed_screenshot = '~/.config/awesome/configuration/utils/screenshot --delayed -r',
