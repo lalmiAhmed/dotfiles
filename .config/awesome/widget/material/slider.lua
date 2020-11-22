@@ -11,9 +11,13 @@ local beautiful = require('beautiful')
 local mat_colors = require('theme.mat-colors')
 -- Local declarations
 
-local mat_slider = {mt = {}}
+local mat_slider = {
+    mt = {}
+}
 
-local properties = {read_only = false}
+local properties = {
+    read_only = false
+}
 
 function mat_slider:set_value(value)
     if self._private.value ~= value then
@@ -25,7 +29,9 @@ function mat_slider:set_value(value)
     end
 end
 
-function mat_slider:get_value(value) return self._private.value end
+function mat_slider:get_value(value)
+    return self._private.value
+end
 
 function mat_slider:set_read_only(value)
     if self._private.read_only ~= value then
@@ -35,29 +41,33 @@ function mat_slider:set_read_only(value)
     end
 end
 
-function mat_slider:get_read_only(value) return self._private.read_only end
+function mat_slider:get_read_only(value)
+    return self._private.read_only
+end
 
 function mat_slider:layout(_, width, height)
     local layout = {}
-    table.insert(layout,
-                 base.place_widget_at(self._private.progress_bar, 0, dpi(21),
-                                      width, height - dpi(42)))
+    table.insert(layout, base.place_widget_at(self._private.progress_bar, 0, dpi(21), width, height - dpi(42)))
     if (not self._private.read_only) then
-        table.insert(layout, base.place_widget_at(self._private.slider, 0,
-                                                  dpi(6), width,
-                                                  height - dpi(12)))
+        table.insert(layout, base.place_widget_at(self._private.slider, 0, dpi(6), width, height - dpi(12)))
     end
     return layout
 end
 
 function mat_slider:draw(_, cr, width, height)
-    if (self._private.read_only) then self._private.slider.forced_height = 0 end
+    if (self._private.read_only) then
+        self._private.slider.forced_height = 0
+    end
 end
 
-function mat_slider:fit(_, width, height) return width, height end
+function mat_slider:fit(_, width, height)
+    return width, height
+end
 
 local function new(args)
-    local ret = base.make_widget(nil, nil, {enable_properties = true})
+    local ret = base.make_widget(nil, nil, {
+        enable_properties = true
+    })
 
     gtable.crush(ret._private, args or {})
 
@@ -96,7 +106,9 @@ local function new(args)
     return ret
 end
 
-function mat_slider.mt:__call(...) return new(...) end
+function mat_slider.mt:__call(...)
+    return new(...)
+end
 
 -- @DOC_widget_COMMON@
 

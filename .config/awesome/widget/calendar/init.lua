@@ -5,6 +5,7 @@ local beautiful = require('beautiful')
 local icons = require('theme.icons')
 local clickable_container = require('widget.material.clickable-container')
 local dpi = require('beautiful').xresources.apply_dpi
+local theme = require('theme')
 
 local styles = {}
 local function rounded_shape(size, partial)
@@ -18,25 +19,39 @@ local function rounded_shape(size, partial)
         end
     end
 end
-styles.month = {padding = 5, bg_color = '#555555', shape = rounded_shape(10)}
-styles.normal = {shape = rounded_shape(5)}
+styles.month = {
+    padding = 5,
+    bg_color = '#555555',
+    shape = rounded_shape(10)
+}
+styles.normal = {
+    shape = rounded_shape(5)
+}
 styles.focus = {
-    fg_color = beautiful.primary.hue_400, -- Current day Color
-    markup = function(t) return '<b>' .. t .. '</b>' end,
+    fg_color = beautiful.primary.hue_200, -- Current day Color
+    markup = function(t)
+        return '<b>' .. t .. '</b>'
+    end,
     shape = rounded_shape(5, true)
 }
 styles.header = {
     fg_color = beautiful.primary.hue_200, -- Month Name Color
-    markup = function(t) return '<b>' .. t .. '</b>' end,
+    markup = function(t)
+        return '<b>' .. t .. '</b>'
+    end,
     shape = rounded_shape(10)
 }
 styles.weekday = {
-    fg_color = beautiful.background.hue_50, -- Day Color
-    markup = function(t) return '<b>' .. t .. '</b>' end,
+    fg_color = beautiful.background.hue_100, -- Day Color
+    markup = function(t)
+        return '<b>' .. t .. '</b>'
+    end,
     shape = rounded_shape(5)
 }
 local function decorate_cell(widget, flag, date)
-    if flag == 'monthheader' and not styles.monthheader then flag = 'header' end
+    if flag == 'monthheader' and not styles.monthheader then
+        flag = 'header'
+    end
     local props = styles[flag] or {}
     if props.markup and widget.get_text and widget.set_markup then
         widget:set_markup(props.markup(widget:get_text()))
@@ -61,7 +76,7 @@ end
 
 local cal = wibox.widget {
     date = os.date('*t'),
-    font = 'Roboto 10',
+    font = theme.font,
     fn_embed = decorate_cell,
     start_sunday = true,
     widget = wibox.widget.calendar.month

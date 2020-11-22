@@ -15,20 +15,36 @@ return function(screen, panel, action_bar_width)
     }
 
     local home_button = wibox.widget {
-        wibox.widget {menu_icon, widget = clickable_container},
+        wibox.widget {
+            menu_icon,
+            widget = clickable_container
+        },
         visible = true,
         bg = beautiful.primary.hue_700,
         widget = wibox.container.background
     }
 
-    home_button:buttons(gears.table.join(
-                            awful.button({}, 1, nil,
-                                         function() _G.dashboard_show() end)))
+    home_button:buttons(gears.table.join(awful.button({}, 1, nil, function()
+        panel:toggle()
+    end)))
+
+    panel:connect_signal('opened', function()
+        menu_icon.icon = icons.close
+        home_button.visible = false
+    end)
+
+    panel:connect_signal('closed', function()
+        menu_icon.icon = icons.menu
+        home_button.visible = true
+    end)
 
     return wibox.widget {
         id = 'action_bar',
         layout = wibox.layout.align.horizontal,
         forced_width = action_bar_width,
-        {layout = wibox.layout.fixed.horizontal, home_button}
+        {
+            layout = wibox.layout.fixed.horizontal,
+            home_button
+        }
     }
 end

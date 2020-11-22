@@ -4,7 +4,9 @@ local beautiful = require('beautiful')
 local dpi = require('beautiful').xresources.apply_dpi
 
 local function renderClient(client, mode)
-    if client.skip_decoration or (client.rendering_mode == mode) then return end
+    if client.skip_decoration or (client.rendering_mode == mode) then
+        return
+    end
 
     client.rendering_mode = mode
     client.floating = false
@@ -18,20 +20,22 @@ local function renderClient(client, mode)
 
     if client.rendering_mode == 'maximized' then
         client.border_width = dpi(2)
-        client.shape = function(cr, w, h) gears.shape.rectangle(cr, w, h) end
+        client.shape = function(cr, w, h)
+            gears.shape.rectangle(cr, w, h)
+        end
     elseif client.rendering_mode == 'tiled' then
         --      client.border_width = beautiful.border_width
         client.border_width = dpi(2)
-        client.shape = function(cr, w, h) gears.shape.rectangle(cr, w, h) end
+        client.shape = function(cr, w, h)
+            gears.shape.rectangle(cr, w, h)
+        end
     end
 end
 
 local changesOnScreenCalled = false
 
 local function changesOnScreen(currentScreen)
-    local tagIsMax = currentScreen.selected_tag ~= nil and
-                         currentScreen.selected_tag.layout ==
-                         awful.layout.suit.max
+    local tagIsMax = currentScreen.selected_tag ~= nil and currentScreen.selected_tag.layout == awful.layout.suit.max
     local clientsToManage = {}
 
     for _, client in pairs(currentScreen.clients) do

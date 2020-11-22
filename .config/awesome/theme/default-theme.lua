@@ -5,12 +5,9 @@ local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
 local theme = {}
 theme.icons = theme_dir .. '/icons/'
-theme.font = 'Roboto medium 10'
-
--- Colors Pallets
 
 -- Primary
-theme.primary = mat_colors.deep_orange
+theme.primary = mat_colors.grey
 
 -- Accent
 theme.accent = mat_colors.orange
@@ -22,10 +19,11 @@ local awesome_overrides = function(theme)
     theme.dir = os.getenv('HOME') .. '/.config/awesome/theme'
 
     theme.icons = theme.dir .. '/icons/'
-    theme.wallpaper = theme.dir .. '/wallpapers/6.png'
-    -- theme.wallpaper = '#e0e0e0'
-    theme.font = 'Roboto medium 10'
-    theme.title_font = 'Roboto medium 14'
+    theme.wallpaper = theme.dir .. '/wallpapers/6.png' -- Can be replaced with a color (eg: '#e0e0e0')
+    theme.font = 'Ubuntu mono bold 10'
+    theme.light_font = 'Ubuntu mono 10'
+    theme.title_font = 'Ubuntu mono bold 14'
+    theme.glyph_font = 'Font Awesome 10'
 
     theme.fg_normal = '#ffffffde'
 
@@ -39,14 +37,12 @@ local awesome_overrides = function(theme)
     theme.bg_systray = theme.primary.hue_900
 
     -- Borders
-
     theme.border_width = dpi(1)
     theme.border_normal = theme.primary.hue_900
     theme.border_focus = theme.primary.hue_500
     theme.border_marked = '#CC9393'
 
     -- Menu
-
     theme.menu_height = dpi(16)
     theme.menu_width = dpi(160)
 
@@ -59,39 +55,31 @@ local awesome_overrides = function(theme)
     end
 
     -- Layout
-
     theme.layout_max = theme.icons .. 'layouts/arrow-expand-all.png'
     theme.layout_tile = theme.icons .. 'layouts/view-quilt.png'
     theme.layout_floating = theme.icons .. 'layouts/floating.png'
 
     -- Taglist
-
+    theme.taglist_font = theme.font
     theme.taglist_bg_empty = theme.primary.hue_900
-    theme.taglist_bg_occupied = theme.primary.hue_900
-    theme.taglist_bg_urgent = 'linear:0,0:0,' .. dpi(48) .. ':0,' ..
-                                  theme.accent.hue_500 .. ':0.07,' ..
-                                  theme.accent.hue_500 .. ':0.07,' ..
-                                  theme.primary.hue_900 .. ':1,' ..
+    theme.taglist_bg_occupied = 'linear:0,0:0,' .. dpi(32) .. ':0,' .. theme.primary.hue_800 .. ':0.1,' ..
+                                    theme.primary.hue_800 .. ':0.1,' .. theme.primary.hue_900 .. ':0.9,' ..
+                                    theme.primary.hue_900
+    theme.taglist_bg_urgent = 'linear:0,0:0,' .. dpi(48) .. ':0,' .. theme.accent.hue_500 .. ':0.07,' ..
+                                  theme.accent.hue_500 .. ':0.07,' .. theme.primary.hue_900 .. ':1,' ..
                                   theme.primary.hue_900
-    theme.taglist_bg_focus = 'linear:0,0:0,' .. dpi(32) .. ':0,' ..
-                                 theme.primary.hue_900 .. ':0.9,' ..
-                                 theme.primary.hue_900 .. ':0.9,' ..
-                                 theme.primary.hue_500 .. ':1,' ..
-                                 theme.primary.hue_500
+    theme.taglist_bg_focus = theme.primary.hue_800
+    theme.taglist_fg_focus = theme.primary.hue_100
+    theme.taglist_fg_urgent = theme.primary.hue_500
 
     -- Tasklist
-
-    theme.tasklist_font = 'Roboto medium 11'
+    theme.tasklist_font = theme.font
     theme.tasklist_bg_normal = theme.primary.hue_900
-    theme.tasklist_bg_focus = 'linear:0,0:0,' .. dpi(32) .. ':0,' ..
-                                  theme.primary.hue_900 .. ':0.9,' ..
-                                  theme.primary.hue_900 .. ':0.9,' ..
-                                  theme.fg_normal .. ':1,' .. theme.fg_normal
+    theme.tasklist_bg_focus = theme.primary.hue_800
     theme.tasklist_bg_urgent = theme.primary.hue_900
-    theme.tasklist_fg_focus = '#DDDDDD'
-    theme.tasklist_fg_urgent = theme.fg_normal
-    theme.tasklist_fg_normal = '#AAAAAA'
+    theme.tasklist_fg_urgent = theme.primary.hue_500
 
+    -- Icons
     theme.icon_theme = 'Tela circle purple dark'
 
     -- Client
@@ -99,4 +87,7 @@ local awesome_overrides = function(theme)
     theme.border_focus = theme.primary.hue_100
     theme.border_normal = theme.primary.hue_900
 end
-return {theme = theme, awesome_overrides = awesome_overrides}
+return {
+    theme = theme,
+    awesome_overrides = awesome_overrides
+}

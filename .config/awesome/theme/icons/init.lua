@@ -1,17 +1,15 @@
+local theme = require('theme')
+local wibox = require('wibox')
 local dir = os.getenv('HOME') .. '/.config/awesome/theme/icons'
 
+local separator = wibox.widget {
+    text = '|',
+    font = theme.glyph_font,
+    widget = wibox.widget.textbox
+}
+
 return {
-    -- tags
-    chrome = dir .. '/google-chrome.svg',
-    firefox = dir .. '/firefox.svg',
-    console = dir .. '/console.svg',
-    code = dir .. '/code-braces.svg',
-    social = dir .. '/forum.svg',
-    folder = dir .. '/folder.svg',
-    music = dir .. '/music.svg',
-    game = dir .. '/google-controller.svg',
-    lab = dir .. '/flask.svg',
-    -- others
+    -- Image based
     menu = dir .. '/dashboard.svg',
     close = dir .. '/close.svg',
     close_dark = dir .. '/close_dark.svg',
@@ -29,11 +27,7 @@ return {
     harddisk = dir .. '/harddisk.svg',
     thermometer = dir .. '/thermometer.svg',
     uptime = dir .. '/computer.svg',
-    plus = dir .. '/plus.svg',
-    github = dir .. '/github.svg',
-    deviantart = dir .. '/deviantart.svg',
-    codeforces = dir .. '/codeforces.svg',
-    youtube = dir .. '/youtube.svg',
-    reddit = dir .. '/reddit.svg',
-    linkedin = dir .. '/linkedin.svg'
+
+    -- Others
+    separator = separator
 }

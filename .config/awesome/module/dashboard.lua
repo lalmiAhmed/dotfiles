@@ -30,7 +30,10 @@ local buildButton = function(icon, name)
         {
             {
                 {
-                    {image = icon, widget = wibox.widget.imagebox},
+                    {
+                        image = icon,
+                        widget = wibox.widget.imagebox
+                    },
                     margins = dpi(16),
                     widget = wibox.container.margin
                 },
@@ -41,12 +44,10 @@ local buildButton = function(icon, name)
             forced_width = dpi(60),
             forced_height = dpi(60),
             visible = true,
-            -- bg = beautiful.bg_normal,
             widget = clickable_container
 
         },
         visible = true,
-        -- bg = beautiful.bg_normal,
         shape = panel_style,
         widget = wibox.container.background
     }
@@ -55,7 +56,6 @@ local buildButton = function(icon, name)
         layout = wibox.layout.fixed.horizontal,
         spacing = dpi(5),
         a_button
-        -- button_text
     }
 
     return build_a_button
@@ -92,7 +92,9 @@ function suspend_command()
     dashboard_hide()
     awful.spawn.with_shell(apps.default.lock .. ' & systemctl suspend')
 end
-function exit_command() _G.awesome.quit() end
+function exit_command()
+    _G.awesome.quit()
+end
 function lock_command()
     dashboard_hide()
     awful.spawn.with_shell('sleep 1 && ' .. apps.default.lock)
@@ -107,19 +109,29 @@ function reboot_command()
 end
 
 local poweroff = buildButton(icons.power, 'Shutdown')
-poweroff:connect_signal('button::release', function() poweroff_command() end)
+poweroff:connect_signal('button::release', function()
+    poweroff_command()
+end)
 
 local reboot = buildButton(icons.restart, 'Restart')
-reboot:connect_signal('button::release', function() reboot_command() end)
+reboot:connect_signal('button::release', function()
+    reboot_command()
+end)
 
 local suspend = buildButton(icons.sleep, 'Sleep')
-suspend:connect_signal('button::release', function() suspend_command() end)
+suspend:connect_signal('button::release', function()
+    suspend_command()
+end)
 
 local exit = buildButton(icons.logout, 'Logout')
-exit:connect_signal('button::release', function() exit_command() end)
+exit:connect_signal('button::release', function()
+    exit_command()
+end)
 
 local lock = buildButton(icons.lock, 'Lock')
-lock:connect_signal('button::release', function() lock_command() end)
+lock:connect_signal('button::release', function()
+    lock_command()
+end)
 
 local search = buildButton(icons.search, 'Search')
 search:connect_signal('button::release', function()
@@ -129,7 +141,9 @@ search:connect_signal('button::release', function()
 end)
 
 local close = buildButton(icons.close_dark, 'Close')
-close:connect_signal('button::release', function() dashboard_hide() end)
+close:connect_signal('button::release', function()
+    dashboard_hide()
+end)
 
 -- Get screen geometry
 local screen_geometry = awful.screen.focused().geometry
@@ -154,23 +168,26 @@ function dashboard_hide()
 end
 
 function dashboard_show()
-    dashboard_grabber = awful.keygrabber.run(
-                            function(_, key, event)
-            if event == 'release' then return end
+    dashboard_grabber = awful.keygrabber.run(function(_, key, event)
+        if event == 'release' then
+            return
+        end
 
-            if key == 'Escape' or key == 'q' or key == 'x' or key == 'm' then
-                dashboard_hide()
-            end
-        end)
+        if key == 'Escape' or key == 'q' or key == 'x' or key == 'm' then
+            dashboard_hide()
+        end
+    end)
     dashboard.visible = true
 end
 
 dashboard:buttons(gears.table.join( -- Middle click - Hide dashboard
-awful.button({}, 2, function() dashboard_hide() end),
-awful.button({}, 3, function() dashboard_hide() end)))
+awful.button({}, 2, function()
+    dashboard_hide()
+end), awful.button({}, 3, function()
+    dashboard_hide()
+end)))
 
-local profile_picture = os.getenv("HOME") ..
-                            "/.config/awesome/user_picture_curved.png"
+local profile_picture = os.getenv("HOME") .. "/.config/awesome/user_picture_curved.png"
 
 local profile = wibox.widget {
     wibox.widget {
@@ -299,7 +316,11 @@ local cal = require('widget.calendar')
 local calWidget = wibox.widget {
     {
         nil,
-        {cal, margins = dpi(16), widget = wibox.container.margin},
+        {
+            cal,
+            margins = dpi(16),
+            widget = wibox.container.margin
+        },
         nil,
         layout = wibox.layout.flex.horizontal
     },
@@ -339,7 +360,10 @@ gears.timer {
 
 local fortune_widget = wibox.widget {
     {
-        {fortune, layout = wibox.layout.flex.horizontal},
+        {
+            fortune,
+            layout = wibox.layout.flex.horizontal
+        },
         margins = dpi(16),
         widget = wibox.container.margin
     },
@@ -418,49 +442,79 @@ function files_command(directory)
 end
 
 local reddit = buildButton(icons.reddit, 'Reddit')
-reddit:connect_signal('button::release', function() reddit_command() end)
+reddit:connect_signal('button::release', function()
+    reddit_command()
+end)
 
 local youtube = buildButton(icons.youtube, 'Youtube')
-youtube:connect_signal('button::release', function() youtube_command() end)
+youtube:connect_signal('button::release', function()
+    youtube_command()
+end)
 
 local linkedin = buildButton(icons.linkedin, 'Linkedin')
-linkedin:connect_signal('button::release', function() linkedin_command() end)
+linkedin:connect_signal('button::release', function()
+    linkedin_command()
+end)
 
 local github = buildButton(icons.github, 'Github')
-github:connect_signal('button::release', function() github_command() end)
+github:connect_signal('button::release', function()
+    github_command()
+end)
 
 local deviantart = buildButton(icons.deviantart, 'Deviantart')
-deviantart:connect_signal('button::release', function() deviantart_command() end)
+deviantart:connect_signal('button::release', function()
+    deviantart_command()
+end)
 
 local codeforces = buildButton(icons.codeforces, 'Codeforces')
-codeforces:connect_signal('button::release', function() codeforces_command() end)
+codeforces:connect_signal('button::release', function()
+    codeforces_command()
+end)
 
 local home = buildLabel('Home')
-home:connect_signal('button::release', function() files_command(".") end)
+home:connect_signal('button::release', function()
+    files_command(".")
+end)
 
 local downloads = buildLabel('Downloads')
-downloads:connect_signal('button::release',
-                         function() files_command("Downloads") end)
+downloads:connect_signal('button::release', function()
+    files_command("Downloads")
+end)
 
 local desktop = buildLabel('Desktop')
-desktop:connect_signal('button::release',
-                       function() files_command("Desktop") end)
+desktop:connect_signal('button::release', function()
+    files_command("Desktop")
+end)
 
 local pictures = buildLabel('Pictures')
-pictures:connect_signal('button::release',
-                        function() files_command("Pictures") end)
+pictures:connect_signal('button::release', function()
+    files_command("Pictures")
+end)
 
 local videos = buildLabel('Videos')
-videos:connect_signal('button::release', function() files_command("Videos") end)
+videos:connect_signal('button::release', function()
+    files_command("Videos")
+end)
 
 local documents = buildLabel('Documents')
-documents:connect_signal('button::release',
-                         function() files_command("Documents") end)
+documents:connect_signal('button::release', function()
+    files_command("Documents")
+end)
 
 local bookmarks = wibox.widget {
     {
-        {reddit, youtube, linkedin, layout = wibox.layout.flex.horizontal},
-        {github, deviantart, codeforces, layout = wibox.layout.ratio.horizontal},
+        {
+            reddit,
+            youtube,
+            linkedin,
+            layout = wibox.layout.flex.horizontal
+        },
+        {
+            github,
+            deviantart,
+            codeforces,
+            layout = wibox.layout.ratio.horizontal
+        },
         layout = wibox.layout.fixed.vertical
     },
     visible = true,
@@ -543,7 +597,11 @@ dashboard:setup{
         expand = 'none',
         layout = wibox.layout.align.horizontal
     },
-    {nil, expand = 'none', layout = wibox.layout.align.horizontal},
+    {
+        nil,
+        expand = 'none',
+        layout = wibox.layout.align.horizontal
+    },
     expand = 'none',
     layout = wibox.layout.align.vertical
 }

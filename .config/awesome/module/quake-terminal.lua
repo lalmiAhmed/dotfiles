@@ -1,5 +1,4 @@
 local awful = require('awful')
-local spawn = require('awful.spawn')
 local app = require('configuration.apps').default.quake
 local dpi = require('beautiful').xresources.apply_dpi
 local beautiful = require('beautiful')
@@ -10,11 +9,17 @@ beautiful.init(require('theme'))
 local quake_id = 'notnil'
 local quake_client
 local opened = false
-function create_shell() quake_id = spawn(app, {skip_decoration = true}) end
+function create_shell()
+    quake_id = awful.spawn.with_shell("exec -a QuakeTerminal " .. app)
+end
 
-function open_quake() quake_client.hidden = false end
+function open_quake()
+    quake_client.hidden = false
+end
 
-function close_quake() quake_client.hidden = true end
+function close_quake()
+    quake_client.hidden = true
+end
 
 toggle_quake = function()
     opened = not opened
@@ -36,6 +41,7 @@ _G.client.connect_signal('manage', function(c)
     if (c.pid == quake_id) then
         quake_client = c
         c.x = c.screen.geometry.x
+        c.height = dpi(400)
         c.y = c.screen.geometry.height - c.height
         c.opacity = 0.9
         c.floating = true

@@ -11,16 +11,16 @@ theme.font = 'Roboto medium 10'
 
 -- Primary
 theme.primary = mat_colors.grey
+theme.primary.hue_100 = '#bd93f9'
 theme.primary.hue_200 = '#50fa7b'
 theme.primary.hue_300 = '#f8f8f2'
-theme.primary.hue_350 = '#ff5555'
-theme.primary.hue_400 = '#ffb86c'
+theme.primary.hue_700 = '#ffb86c'
 theme.primary.hue_500 = '#6272a4'
 theme.primary.hue_600 = '#ff79c6'
-theme.primary.hue_700 = '#bd93f9'
+theme.primary.hue_400 = '#ff5555'
 theme.primary.hue_800 = '#44475a'
 theme.primary.hue_900 = '#282a36'
--- theme.primary = mat_colors.indigo
+
 -- Accent
 theme.accent = mat_colors.orange
 
@@ -33,4 +33,7 @@ theme.background.hue_900 = '#44475a'
 local awesome_overrides = function(theme)
     --
 end
-return {theme = theme, awesome_overrides = awesome_overrides}
+return {
+    theme = theme,
+    awesome_overrides = awesome_overrides
+}
