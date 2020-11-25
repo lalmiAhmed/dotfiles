@@ -43,7 +43,6 @@ _G.client.connect_signal('manage', function(c)
         c.x = c.screen.geometry.x
         c.height = dpi(400)
         c.y = c.screen.geometry.height - c.height
-        c.opacity = 0.9
         c.floating = true
         c.skip_taskbar = true
         c.ontop = true

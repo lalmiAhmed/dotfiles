@@ -13,6 +13,7 @@ local wibox = require('wibox')
 local clickable_container = require('widget.material.clickable-container')
 local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
+local apps = require('configuration.apps')
 
 -- acpi sample outputs
 -- Battery 0: Discharging, 75%, 01:51:38 remaining
@@ -32,7 +33,7 @@ local widget = wibox.widget {
 
 local widget_button = clickable_container(wibox.container.margin(widget, dpi(4), dpi(4), dpi(8), dpi(8)))
 widget_button:buttons(gears.table.join(awful.button({}, 1, nil, function()
-    awful.spawn('xfce4-power-manager-settings')
+    _G.awesome.spawn(apps.default.power_manager)
 end)))
 -- Alternative to naughty.notify - tooltip. You can compare both and choose the preferred one
 local battery_popup = awful.tooltip({

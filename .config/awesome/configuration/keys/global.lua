@@ -1,8 +1,7 @@
-local awful = require('awful')
 require('awful.autofocus')
+local awful = require('awful')
 local beautiful = require('beautiful')
 local hotkeys_popup = require('awful.hotkeys_popup').widget
-
 local modkey = require('configuration.keys.mod').modKey
 local altkey = require('configuration.keys.mod').altKey
 local apps = require('configuration.apps')
@@ -126,11 +125,6 @@ end, {
     group = 'awesome'
 }), awful.key({modkey, 'Control'}, 'q', _G.awesome.quit, {
     description = 'quit awesome',
-    group = 'awesome'
-}), awful.key({modkey}, 'm', function()
-    _G.dashboard_show()
-end, {
-    description = 'toggle main menu',
     group = 'awesome'
 }), awful.key({modkey, 'Shift'}, 'p', function()
     _G.exit_screen_show()

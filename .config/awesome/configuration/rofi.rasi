@@ -11,12 +11,12 @@ configuration {
 }
 
 * {
-	background-color:            rgb(40, 42, 54, 0.65);
-	text-color:                  #f8f8f299;
-	selbg:                       rgb(80, 250, 123);
-	urgbg:                       rgb(98, 114, 164);
-	actbg:                       rgb(68, 71, 90, 0.2);
-	winbg:		    	         #f8f8f2;
+	background-color:            rgb(0, 0, 0, 0);
+	text-color:                  rgb(255, 255, 255);
+	selbg:                       rgb(255, 255, 255, 0.5);
+	urgbg:                       rgb(255, 255, 255);
+	actbg:                       rgb(255, 255, 255, 0.05);
+	winbg:		    	         rgb(255, 255, 255);
 
 	selected-normal-foreground:  @winbg;
 	normal-foreground:           @text-color;
@@ -39,7 +39,7 @@ configuration {
 	hide-scrollbar:              "true";
 	margin:                      0px;
 	padding:                     0px;
-	font:            "Ubuntu mono bold 12";
+	font:            			 "Ubuntu mono bold 12";
 }
 
 window {
@@ -48,10 +48,10 @@ window {
 	x-offset:     0px;
 	height:		  100%;
 	width:		  100%;
-	padding: 	  31%;
+	padding: 	  15%;
 	orientation:  horizontal;
 	children:	  [mainbox];
-	background-color: #282a3655;
+	background-color: rgb(20, 20, 20, 0.9);
 }
 
 mainbox {
@@ -75,7 +75,7 @@ inputbar {
 
 textbox-prompt-colon {                                                
      text-color: inherit;                                              
-     expand: false;                                                    
+     expand: false;
      margin: 0 0.3em 0em 0em;
  }  
 
@@ -93,10 +93,10 @@ element {
 entry {
 	expand:         true;
 	text-color:     @normal-foreground;
-	background-color: rgb(40, 42, 54);
+	background-color: rgb(0, 0, 0, 0);
 	vertical-align: 1;
 	padding:        12px;
-	font:            "Ubuntu mono bold 12";
+	font:            "Ubuntu mono bold 20";
 }
 
 element normal.normal {
@@ -115,10 +115,10 @@ element normal.active {
 }
 
 element selected.normal {
-	background-color: @selected-normal-background;
-	text-color:       @selected-normal-foreground;
-	padding: 16px;
-	border:           0 0 0 5px solid;
+	background-color: 	@selected-normal-background;
+	text-color:       	@selected-normal-foreground;
+	padding: 			16px;
+	border:           	0 0 0 5px solid;
 	border-color:	    @active-background;
 }
 

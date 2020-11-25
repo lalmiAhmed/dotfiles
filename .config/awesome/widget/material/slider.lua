@@ -79,7 +79,7 @@ local function new(args)
         forced_height = dpi(6),
         paddings = 0,
         shape = gears.shape.rounded_rect,
-        background_color = beautiful.background.hue_800,
+        background_color = beautiful.primary.hue_900,
         color = beautiful.primary.hue_400,
         widget = wibox.widget.progressbar
     }

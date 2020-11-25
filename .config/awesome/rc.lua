@@ -1,6 +1,7 @@
+require('awful.autofocus')
 local gears = require('gears')
 local awful = require('awful')
-require('awful.autofocus')
+local naughty = require('naughty')
 local beautiful = require('beautiful')
 
 -- Theme
@@ -17,7 +18,6 @@ require('module.quake-terminal')
 -- Backdrop causes bugs on some gtk3 applications
 -- require('module.backdrop')
 require('module.exit-screen')
-require('module.dashboard')
 
 -- Setup all configurations
 require('configuration.client')
@@ -44,10 +44,11 @@ end)
 _G.client.connect_signal('manage', function(c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
-    if not _G.awesome.startup then awful.client.setslave(c) end
+    if not _G.awesome.startup then
+        awful.client.setslave(c)
+    end
 
-    if _G.awesome.startup and not c.size_hints.user_position and
-        not c.size_hints.program_position then
+    if _G.awesome.startup and not c.size_hints.user_position and not c.size_hints.program_position then
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
     end

@@ -80,10 +80,10 @@ local awesome_overrides = function(theme)
     theme.tasklist_fg_urgent = theme.primary.hue_500
 
     -- Icons
-    theme.icon_theme = 'Tela circle purple dark'
+    theme.icon_theme = 'Papirus'
 
     -- Client
-    theme.border_width = dpi(1)
+    theme.border_width = dpi(2)
     theme.border_focus = theme.primary.hue_100
     theme.border_normal = theme.primary.hue_900
 end

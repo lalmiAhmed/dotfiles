@@ -4,12 +4,13 @@ local mat_list_item = require('widget.material.list-item')
 local dpi = require('beautiful').xresources.apply_dpi
 local watch = require('awful.widget.watch')
 local beautiful = require('beautiful')
+local icons = require('theme.icons')
 
 local glyph = wibox.widget.textbox()
 glyph.font = beautiful.glyph_font
 glyph.align = 'center'
 glyph.valign = 'center'
-glyph.text = ''
+glyph.text = icons.volume
 
 local percentage = wibox.widget.textbox()
 percentage.align = 'center'
@@ -51,7 +52,6 @@ local volume_percentage = wibox.widget {
 local volume_widget = wibox.widget {
     wibox.container.margin(volume_percentage, dpi(6), dpi(6)),
     bg = beautiful.primary.hue_800,
-    fg = beautiful.primary.hue_100,
     widget = wibox.container.background
 }
 

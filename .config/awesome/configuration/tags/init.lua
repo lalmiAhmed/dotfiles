@@ -1,10 +1,12 @@
 local awful = require('awful')
+local beautiful = require('beautiful')
 local gears = require('gears')
 local icons = require('theme.icons')
 local apps = require('configuration.apps')
+local dpi = require('beautiful').xresources.apply_dpi
 
 local tags = {{
-    text = 'www',
+    text = 'web',
     type = 'web',
     defaultApp = apps.default.browser,
     screen = 1
@@ -44,7 +46,7 @@ awful.screen.connect_for_each_screen(function(s)
             icon_only = false,
             layout = awful.layout.suit.tile,
             gap_single_client = true,
-            gap = 2,
+            gap = dpi(0),
             screen = s,
             defaultApp = tag.defaultApp,
             selected = i == 1
@@ -55,8 +57,8 @@ end)
 _G.tag.connect_signal('property::layout', function(t)
     local currentLayout = awful.tag.getproperty(t, 'layout')
     if (currentLayout == awful.layout.suit.max) then
-        t.gap = 2
+        t.gap = dpi(0)
     else
-        t.gap = 2
+        t.gap = dpi(0)
     end
 end)

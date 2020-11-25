@@ -108,7 +108,6 @@ shopt -s checkwinsize
 
 shopt -s expand_aliases
 
-# export QT_SELECT=4
 
 # Enable history appending instead of overwriting.  #139609
 shopt -s histappend
@@ -138,14 +137,6 @@ ex ()
   fi
 }
 
-# POWERLINE
-#function _update_ps1() {
-#    PS1=$(powerline-shell $?)
-#}
-#if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
-#    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
-#fi
-
 # SUSPEND CTRL + S
 stty -ixon
 
@@ -153,10 +144,7 @@ stty -ixon
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 config config --local status.showUntrackedFiles no
 
-# CONFIG ASSISTANT ALIAS
-alias assistant='$HOME/assistant.sh'
-
-# BASH PROMPT (USELESS, JUST USE ZSH/POWERLINE)
+# BASH PROMPT WITH GIT INFO
 function parse_git_dirty {
   STATUS="$(git status 2> /dev/null)"
   if [[ $? -ne 0 ]]; then printf "-"; return; else printf "["; fi
@@ -171,12 +159,9 @@ function parse_git_dirty {
 parse_git_branch() {
   # Long form
   git rev-parse --abbrev-ref HEAD 2> /dev/null
-  # Short form
-  # git rev-parse --abbrev-ref HEAD 2> /dev/null | sed -e 's/.*\/\(.*\)/\1/'
 }
 PS1="\[\e[1;49;34m\]@\u\[\e[00m\]\[\e[01;49;39m\]\[\e[00m\] \[\e[1;49;31m\]\w\[\e[0m\]"
 PS1+=" (git: \e[1;50;35m\]\$(parse_git_branch)\[\033[34m\]\$(parse_git_dirty)\[\033[00m\])"
-PS1+="\n \[\033[32m\]➜\[\e[0m\]  "
+PS1+="\n \[\033[32m\]>>>\[\e[0m\]  "
 export PS1
 
-# alias pip=pip3

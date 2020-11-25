@@ -311,24 +311,7 @@ local hardware_monitor = wibox.widget {
     widget = wibox.container.background
 }
 
-local cal = require('widget.calendar')
-
-local calWidget = wibox.widget {
-    {
-        nil,
-        {
-            cal,
-            margins = dpi(16),
-            widget = wibox.container.margin
-        },
-        nil,
-        layout = wibox.layout.flex.horizontal
-    },
-    resize = true,
-    shape = panel_style,
-    bg = beautiful.bg_normal,
-    widget = wibox.container.background
-}
+local calWidget = require('widget.calendar')
 
 -- Fortune widget				Credits: u/EmpressNoodle, github/elenapan
 local fortune_command = "fortune -n 140 -s"

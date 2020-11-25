@@ -5,13 +5,6 @@ local client_buttons = require('configuration.client.buttons')
 
 -- Rules
 awful.rules.rules = {{
-    rule_any = {
-        instance = {"QuakeTerminal"}
-    },
-    properties = {
-        skip_decoration = true
-    }
-}, {
     rule = {},
     properties = {
         focus = awful.client.focus.filter,
@@ -29,8 +22,14 @@ awful.rules.rules = {{
         maximized_horizontal = false,
         maximized_vertical = false
     }
-}, -- Titlebars
-{
+}, {
+    rule_any = {
+        instance = {"QuakeTerminal"}
+    },
+    properties = {
+        skip_decoration = true
+    }
+}, {
     rule_any = {
         type = {'dialog'},
         class = {'Wicd-client.py', 'calendar.google.com'}
@@ -46,5 +45,37 @@ awful.rules.rules = {{
             end
         end,
         skip_decoration = true
+    }
+}, {
+    rule_any = {
+        type = {'modal'}
+    },
+    properties = {
+        titlebars_enabled = true,
+        floating = true,
+        above = true,
+        skip_decoration = true,
+        placement = awful.placement.centered
+    }
+}, {
+    rule_any = {
+        type = {'utility'}
+    },
+    properties = {
+        titlebars_enabled = false,
+        floating = true,
+        skip_decoration = true,
+        placement = awful.placement.centered
+    }
+}, {
+    rule_any = {
+        type = {'splash'},
+        name = {'Discord Updater'}
+    },
+    properties = {
+        floating = true,
+        above = true,
+        skip_decoration = true,
+        placement = awful.placement.centered
     }
 }}

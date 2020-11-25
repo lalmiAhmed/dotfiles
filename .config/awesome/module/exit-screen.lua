@@ -11,34 +11,39 @@ local dpi = require('beautiful').xresources.apply_dpi
 local icon_size = beautiful.exit_screen_icon_size or dpi(140)
 
 local buildButton = function(icon)
-    local abutton = wibox.widget {
-        wibox.widget {
-            wibox.widget {
-                wibox.widget {image = icon, widget = wibox.widget.imagebox},
-                top = dpi(16),
-                bottom = dpi(16),
-                left = dpi(16),
-                right = dpi(16),
-                widget = wibox.container.margin
-            },
-            shape = gears.shape.circle,
-            forced_width = icon_size,
-            forced_height = icon_size,
-            widget = clickable_container
-        },
-        left = dpi(24),
-        right = dpi(24),
-        widget = wibox.container.margin
+    local button_text = wibox.widget {
+        text = icon,
+        font = beautiful.glyph_font .. ' 32',
+        align = 'center',
+        valign = 'center',
+        widget = wibox.widget.textbox
     }
 
-    return abutton
+    local a_button = wibox.widget {
+        {
+            button_text,
+            margins = dpi(32),
+            widget = wibox.container.margin
+        },
+        shape = gears.shape.circle,
+        visible = true,
+        widget = clickable_container
+    }
+
+    return wibox.widget {
+        layout = wibox.layout.flex.horizontal,
+        spacing = dpi(64),
+        a_button
+    }
 end
 
 function suspend_command()
     exit_screen_hide()
     awful.spawn.with_shell(apps.default.lock .. ' & systemctl suspend')
 end
-function exit_command() _G.awesome.quit() end
+function exit_command()
+    _G.awesome.quit()
+end
 function lock_command()
     exit_screen_hide()
     awful.spawn.with_shell('sleep 1 && ' .. apps.default.lock)
@@ -53,19 +58,29 @@ function reboot_command()
 end
 
 local poweroff = buildButton(icons.power, 'Shutdown')
-poweroff:connect_signal('button::release', function() poweroff_command() end)
+poweroff:connect_signal('button::release', function()
+    poweroff_command()
+end)
 
 local reboot = buildButton(icons.restart, 'Restart')
-reboot:connect_signal('button::release', function() reboot_command() end)
+reboot:connect_signal('button::release', function()
+    reboot_command()
+end)
 
 local suspend = buildButton(icons.sleep, 'Sleep')
-suspend:connect_signal('button::release', function() suspend_command() end)
+suspend:connect_signal('button::release', function()
+    suspend_command()
+end)
 
 local exit = buildButton(icons.logout, 'Logout')
-exit:connect_signal('button::release', function() exit_command() end)
+exit:connect_signal('button::release', function()
+    exit_command()
+end)
 
 local lock = buildButton(icons.lock, 'Lock')
-lock:connect_signal('button::release', function() lock_command() end)
+lock:connect_signal('button::release', function()
+    lock_command()
+end)
 
 -- Get screen geometry
 local screen_geometry = awful.screen.focused().geometry
@@ -81,7 +96,7 @@ exit_screen = wibox({
     width = screen_geometry.width
 })
 
-exit_screen.bg = beautiful.background.hue_900 .. '55'
+exit_screen.bg = beautiful.primary.hue_900 .. '55'
 
 local exit_screen_grabber
 
@@ -91,33 +106,34 @@ function exit_screen_hide()
 end
 
 function exit_screen_show()
-    exit_screen_grabber = awful.keygrabber.run(
-                              function(_, key, event)
-            if event == 'release' then return end
+    exit_screen_grabber = awful.keygrabber.run(function(_, key, event)
+        if event == 'release' then
+            return
+        end
 
-            if key == 's' then
-                suspend_command()
-            elseif key == 'e' then
-                exit_command()
-            elseif key == 'l' then
-                lock_command()
-            elseif key == 'p' then
-                poweroff_command()
-            elseif key == 'r' then
-                reboot_command()
-            elseif key == 'Escape' or key == 'q' or key == 'x' then
-                -- naughty.notify({text = "Cancel"})
-                exit_screen_hide()
-                -- else awful.keygrabber.stop(exit_screen_grabber)
-            end
-        end)
+        if key == 's' then
+            suspend_command()
+        elseif key == 'e' then
+            exit_command()
+        elseif key == 'l' then
+            lock_command()
+        elseif key == 'p' then
+            poweroff_command()
+        elseif key == 'r' then
+            reboot_command()
+        elseif key == 'Escape' or key == 'q' or key == 'x' then
+            exit_screen_hide()
+        end
+    end)
     exit_screen.visible = true
 end
 
 exit_screen:buttons(gears.table.join( -- Middle click - Hide exit_screen
-awful.button({}, 2, function() exit_screen_hide() end),
--- Right click - Hide exit_screen
-awful.button({}, 3, function() exit_screen_hide() end)))
+awful.button({}, 2, function()
+    exit_screen_hide()
+end), awful.button({}, 3, function()
+    exit_screen_hide()
+end)))
 
 -- Item placement
 exit_screen:setup{
@@ -125,15 +141,12 @@ exit_screen:setup{
     {
         nil,
         {
-            -- {
             poweroff,
             reboot,
             suspend,
             exit,
             lock,
             layout = wibox.layout.fixed.horizontal
-            -- },
-            -- widget = exit_screen_box
         },
         nil,
         expand = 'none',
