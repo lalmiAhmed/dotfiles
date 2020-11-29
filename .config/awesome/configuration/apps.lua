@@ -1,21 +1,21 @@
 local filesystem = require('gears.filesystem')
-local theme = require('theme')
+local beautiful = require('beautiful')
 
 -- Thanks to jo148 on github for making rofi dpi aware!
 local with_dpi = require('beautiful').xresources.apply_dpi
 local get_dpi = require('beautiful').xresources.get_dpi
 local rofi_command = 'env /usr/bin/rofi -dpi ' .. get_dpi() .. ' -width ' .. with_dpi(100) ..
                          ' -show drun -display-drun -theme ' .. filesystem.get_configuration_dir() ..
-                         '/configuration/rofi.rasi -icon-theme ' .. theme.icon_theme ..
+                         '/configuration/rofi.rasi -icon-theme ' .. beautiful.icon_theme ..
                          ' -run-command "/bin/bash -c -i \'shopt -s expand_aliases; {cmd}\'"'
 
 return {
     -- List of apps to start by default on some actions
     default = {
-        terminal = 'konsole',
+        terminal = 'kitty',
         rofi = rofi_command,
         lock = 'i3lock-fancy',
-        quake = 'konsole',
+        quake = 'kitty',
         screenshot = '~/.config/awesome/configuration/utils/screenshot -m',
         region_screenshot = '~/.config/awesome/configuration/utils/screenshot -r',
         delayed_screenshot = '~/.config/awesome/configuration/utils/screenshot --delayed -r',
@@ -31,5 +31,7 @@ return {
                        'nm-applet --indicator', 'ibus-daemon --xim --daemonize', 'scream-start', 'numlockx on',
                        '/usr/lib/xfce-polkit/xfce-polkit & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)', -- credential manager
                        'blueman-tray',
-                       'xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Natural Scrolling Enabled" 1', 'xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Tapping Enabled" 1'}
+                       'xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Natural Scrolling Enabled" 1',
+                       'xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Tapping Enabled" 1'}
 }
+

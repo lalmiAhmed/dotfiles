@@ -41,17 +41,12 @@ update_volume()
 
 local volume_percentage = wibox.widget {
     glyph,
-    wibox.widget {
-        wibox.container.margin(percentage, dpi(4)),
-        forced_width = dpi(28),
-        widget = wibox.container.background
-    },
+    wibox.container.margin(percentage, dpi(4)),
     layout = wibox.layout.fixed.horizontal
 }
 
 local volume_widget = wibox.widget {
     wibox.container.margin(volume_percentage, dpi(6), dpi(6)),
-    bg = beautiful.primary.hue_800,
     widget = wibox.container.background
 }
 

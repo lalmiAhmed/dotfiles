@@ -21,6 +21,7 @@ local apps = require('configuration.apps')
 
 local HOME = os.getenv('HOME')
 local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/battery/icons/'
+local percentage = wibox.widget.textbox()
 
 local widget = wibox.widget {
     {
@@ -31,13 +32,15 @@ local widget = wibox.widget {
     layout = wibox.layout.fixed.horizontal
 }
 
-local widget_button = clickable_container(wibox.container.margin(widget, dpi(4), dpi(4), dpi(8), dpi(8)))
-widget_button:buttons(gears.table.join(awful.button({}, 1, nil, function()
-    _G.awesome.spawn(apps.default.power_manager)
-end)))
+local battery_widget = wibox.widget {
+    wibox.container.margin(widget, dpi(4), dpi(4), dpi(3), dpi(3)),
+    wibox.container.margin(percentage, dpi(0), dpi(4), dpi(4), dpi(4)),
+    layout = wibox.layout.fixed.horizontal
+}
+
 -- Alternative to naughty.notify - tooltip. You can compare both and choose the preferred one
 local battery_popup = awful.tooltip({
-    objects = {widget_button},
+    objects = {battery_widget},
     mode = 'outside',
     align = 'left',
     preferred_positions = {'right', 'left', 'top', 'bottom'}
@@ -123,7 +126,8 @@ watch('acpi -i', 1, function(_, stdout)
     widget.icon:set_image(PATH_TO_ICONS .. batteryIconName .. '.svg')
     -- Update popup text
     battery_popup.text = string.gsub(stdout, '\n$', '')
+    percentage.text = math.floor(charge)
     collectgarbage('collect')
 end, widget)
 
-return widget_button
+return battery_widget

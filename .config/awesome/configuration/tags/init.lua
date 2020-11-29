@@ -12,27 +12,27 @@ local tags = {{
     screen = 1
 }, {
     text = 'dev',
-    type = 'code',
+    type = 'dev',
     defaultApp = apps.default.editor,
     screen = 1
 }, {
-    text = 'file',
-    type = 'files',
-    defaultApp = apps.default.files,
-    screen = 1
-}, {
     text = 'term',
-    type = 'console',
+    type = 'term',
     defaultApp = apps.default.terminal,
     screen = 1
 }, {
+    text = 'file',
+    type = 'file',
+    defaultApp = apps.default.files,
+    screen = 1
+}, {
     text = 'chat',
-    type = 'social',
+    type = 'chat',
     defaultApp = apps.default.social,
     screen = 1
 }, {
     text = 'misc',
-    type = 'any',
+    type = 'misc',
     defaultApp = apps.default.rofi,
     screen = 1
 }}
@@ -46,19 +46,10 @@ awful.screen.connect_for_each_screen(function(s)
             icon_only = false,
             layout = awful.layout.suit.tile,
             gap_single_client = true,
-            gap = dpi(0),
+            gap = beautiful.gaps,
             screen = s,
             defaultApp = tag.defaultApp,
             selected = i == 1
         })
-    end
-end)
-
-_G.tag.connect_signal('property::layout', function(t)
-    local currentLayout = awful.tag.getproperty(t, 'layout')
-    if (currentLayout == awful.layout.suit.max) then
-        t.gap = dpi(0)
-    else
-        t.gap = dpi(0)
     end
 end)

@@ -21,7 +21,8 @@ apt = 	chromium-browser \
 		xbacklight \
 		lxappearance \
 		kde-spectacle \
-		xclip
+		xclip \
+		kitty
 
 apt:
 	sudo apt-get install $(apt)

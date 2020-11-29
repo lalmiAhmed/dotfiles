@@ -1,19 +1,13 @@
 local filesystem = require('gears.filesystem')
-local mat_colors = require('theme.mat-colors')
+local color_schemes = require('theme.color-schemes')
 local theme_dir = filesystem.get_configuration_dir() .. '/theme'
 local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
 local theme = {}
 theme.icons = theme_dir .. '/icons/'
 
--- Primary
-theme.primary = mat_colors.grey
-
--- Accent
-theme.accent = mat_colors.orange
-
--- Background
-theme.background = mat_colors.grey
+-- Primary Color Scheme
+theme.primary = color_schemes.dracula
 
 local awesome_overrides = function(theme)
     theme.dir = os.getenv('HOME') .. '/.config/awesome/theme'
@@ -21,38 +15,7 @@ local awesome_overrides = function(theme)
     theme.icons = theme.dir .. '/icons/'
     theme.wallpaper = theme.dir .. '/wallpapers/6.png' -- Can be replaced with a color (eg: '#e0e0e0')
     theme.font = 'Ubuntu mono bold 10'
-    theme.light_font = 'Ubuntu mono 10'
-    theme.title_font = 'Ubuntu mono bold 14'
     theme.glyph_font = 'Font Awesome 10'
-
-    theme.fg_normal = '#ffffffde'
-
-    theme.fg_focus = '#e4e4e4'
-    theme.fg_urgent = '#CC9393'
-    theme.bat_fg_critical = '#232323'
-
-    theme.bg_normal = theme.primary.hue_900
-    theme.bg_focus = '#5a5a5a'
-    theme.bg_urgent = '#3F3F3F'
-    theme.bg_systray = theme.primary.hue_900
-
-    -- Borders
-    theme.border_width = dpi(1)
-    theme.border_normal = theme.primary.hue_900
-    theme.border_focus = theme.primary.hue_500
-    theme.border_marked = '#CC9393'
-
-    -- Menu
-    theme.menu_height = dpi(16)
-    theme.menu_width = dpi(160)
-
-    -- Tooltips
-    theme.tooltip_bg = '#232323'
-    -- theme.tooltip_border_color = '#232323'
-    theme.tooltip_border_width = 0
-    theme.tooltip_shape = function(cr, w, h)
-        gears.shape.rounded_rect(cr, w, h, dpi(6))
-    end
 
     -- Layout
     theme.layout_max = theme.icons .. 'layouts/arrow-expand-all.png'
@@ -65,27 +28,28 @@ local awesome_overrides = function(theme)
     theme.taglist_bg_occupied = 'linear:0,0:0,' .. dpi(32) .. ':0,' .. theme.primary.hue_800 .. ':0.1,' ..
                                     theme.primary.hue_800 .. ':0.1,' .. theme.primary.hue_900 .. ':0.9,' ..
                                     theme.primary.hue_900
-    theme.taglist_bg_urgent = 'linear:0,0:0,' .. dpi(48) .. ':0,' .. theme.accent.hue_500 .. ':0.07,' ..
-                                  theme.accent.hue_500 .. ':0.07,' .. theme.primary.hue_900 .. ':1,' ..
+    theme.taglist_bg_urgent = 'linear:0,0:0,' .. dpi(48) .. ':0,' .. theme.primary.hue_700 .. ':0.07,' ..
+                                  theme.primary.hue_700 .. ':0.07,' .. theme.primary.hue_900 .. ':1,' ..
                                   theme.primary.hue_900
-    theme.taglist_bg_focus = theme.primary.hue_800
-    theme.taglist_fg_focus = theme.primary.hue_100
-    theme.taglist_fg_urgent = theme.primary.hue_500
+    theme.taglist_bg_focus = theme.primary.hue_600
+    theme.taglist_fg_focus = theme.primary.hue_900
 
     -- Tasklist
     theme.tasklist_font = theme.font
     theme.tasklist_bg_normal = theme.primary.hue_900
     theme.tasklist_bg_focus = theme.primary.hue_800
     theme.tasklist_bg_urgent = theme.primary.hue_900
-    theme.tasklist_fg_urgent = theme.primary.hue_500
 
     -- Icons
     theme.icon_theme = 'Papirus'
 
     -- Client
+    theme.gaps = dpi(0)
     theme.border_width = dpi(2)
-    theme.border_focus = theme.primary.hue_100
+    theme.border_focus = theme.primary.hue_700
     theme.border_normal = theme.primary.hue_900
+    theme.bg_normal = theme.primary.hue_900
+    theme.bg_systray = theme.primary.hue_800
 end
 return {
     theme = theme,

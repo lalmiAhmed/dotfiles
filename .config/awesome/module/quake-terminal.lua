@@ -30,7 +30,6 @@ toggle_quake = function()
             open_quake()
             client.focus = quake_client
             quake_client:raise()
-            --       awful.client.focus(quake_id)
         else
             close_quake()
         end
@@ -41,17 +40,19 @@ _G.client.connect_signal('manage', function(c)
     if (c.pid == quake_id) then
         quake_client = c
         c.x = c.screen.geometry.x
-        c.height = dpi(400)
+        c.height = c.screen.geometry.height / 2
         c.y = c.screen.geometry.height - c.height
         c.floating = true
         c.skip_taskbar = true
+        c.skip_decoration = true
         c.ontop = true
+        c.floating = true
         c.above = true
         c.sticky = true
         c.type = 'dock'
         c.hidden = not opened
         c.maximized_horizontal = true
-        c.border_width = dpi(1)
+        c.border_width = beautiful.border_width
     end
 end)
 

@@ -7,7 +7,7 @@ local capi = {
 local gears = require('gears')
 local clickable_container = require('widget.material.clickable-container')
 local tasklist_mode = 'text'
-local theme = require('theme')
+local beautiful = require('beautiful')
 --- Common method to create buttons.
 -- @tab buttons
 -- @param object
@@ -42,21 +42,20 @@ local function list_update(w, buttons, label, data, objects)
     w:reset()
     for i, o in ipairs(objects) do
         local cache = data[o]
-        local ib, tb, bgb, tbm, ibm, tt, l, ll, bg_clickable
+        local ib, tb, bgb, tbm, ibm, l, ll, bg_clickable
         if cache then
             ib = cache.ib
             tb = cache.tb
             bgb = cache.bgb
             tbm = cache.tbm
             ibm = cache.ibm
-            tt = cache.tt
         else
             ib = wibox.widget.imagebox()
             tb = wibox.widget.textbox()
             bg_clickable = clickable_container()
             bgb = wibox.container.background()
-            tbm = wibox.container.margin(tb, dpi(8), dpi(8), dpi(8), dpi(8))
-            ibm = wibox.container.margin(ib, dpi(12), dpi(8), dpi(8), dpi(8))
+            tbm = wibox.container.margin(tb, dpi(4), dpi(4), dpi(1), dpi(1))
+            ibm = wibox.container.margin(ib, dpi(2), dpi(2), dpi(2), dpi(2))
             l = wibox.layout.fixed.horizontal()
             ll = wibox.layout.flex.horizontal()
 
@@ -72,21 +71,12 @@ local function list_update(w, buttons, label, data, objects)
 
             l:buttons(create_buttons(buttons, o))
 
-            -- Tooltip to display whole title, if it was truncated
-            tt = awful.tooltip({
-                objects = {tb},
-                mode = 'outside',
-                align = 'bottom',
-                delay_show = 1
-            })
-
             data[o] = {
                 ib = ib,
                 tb = tb,
                 bgb = bgb,
                 tbm = tbm,
-                ibm = ibm,
-                tt = tt
+                ibm = ibm
             }
         end
 
@@ -139,21 +129,16 @@ local tasklist_buttons = awful.util.table.join(awful.button({}, 1, function(c)
         _G.client.focus = c
         c:raise()
     end
-end), awful.button({}, 2, function(c)
-    c.kill(c)
 end), awful.button({}, 4, function()
     awful.client.focus.byidx(1)
 end), awful.button({}, 5, function()
     awful.client.focus.byidx(-1)
+end), awful.button({}, 2, function(c)
+    c.kill(c)
 end))
 
 local TaskList = function(s)
-    return awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons, {
-        shape = gears.shape.rectangle,
-        shape_border_width = 5,
-        shape_border_color = theme.border_normal,
-        align = "center"
-    }, list_update)
+    return awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons, nil, list_update)
 end
 
 return TaskList

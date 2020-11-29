@@ -18,17 +18,9 @@ local function renderClient(client, mode)
     client.maximized_horizontal = false
     client.maximized_vertical = false
 
-    if client.rendering_mode == 'maximized' then
-        client.border_width = dpi(2)
-        client.shape = function(cr, w, h)
-            gears.shape.rectangle(cr, w, h)
-        end
-    elseif client.rendering_mode == 'tiled' then
-        --      client.border_width = beautiful.border_width
-        client.border_width = dpi(2)
-        client.shape = function(cr, w, h)
-            gears.shape.rectangle(cr, w, h)
-        end
+    client.border_width = beautiful.border_width
+    client.shape = function(cr, w, h)
+        gears.shape.rectangle(cr, w, h)
     end
 end
 

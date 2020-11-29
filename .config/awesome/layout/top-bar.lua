@@ -7,16 +7,14 @@ local TagList = require('widget.tag-list')
 local TaskList = require('widget.task-list')
 local gears = require('gears')
 local icons = require('theme.icons')
+local lain = require("lain")
 local dpi = require('beautiful').xresources.apply_dpi
-local theme = require('theme')
 
 local separator = wibox.widget {
-    text = icons.separator,
-    font = theme.glyph_font .. ' 10',
+    orientation = 'vertical',
+    forced_width = dpi(2),
     opacity = 0.5,
-    align = 'center',
-    valign = 'center',
-    widget = wibox.widget.textbox
+    widget = wibox.widget.separator
 }
 
 local TopBar = function(s, offset)
@@ -37,9 +35,9 @@ local TopBar = function(s, offset)
     -- TASK LIST
     -- =========
     local task_list = wibox.widget {
-        separator,
-        TaskList(s),
-        separator,
+        nil,
+        wibox.container.margin(TaskList(s), dpi(2), dpi(2), dpi(3), dpi(3)),
+        nil,
         layout = wibox.layout.align.horizontal
     }
 
@@ -48,16 +46,26 @@ local TopBar = function(s, offset)
     local volume_widget = require('widget.volume.volume-percentage')
     local date_widget = require('widget.date')
     local clock_widget = require('widget.clock')
+    local mem_widget = require('widget.memory')
+    local cpu_widget = require('widget.cpu')
     local system_details = wibox.widget {
         wibox.widget {
-            volume_widget,
+            wibox.container.background(systray, beautiful.primary.hue_800),
             separator,
-            date_widget,
+            wibox.container.background(battery_widget, beautiful.primary.hue_800),
             separator,
-            clock_widget,
+            wibox.container.background(mem_widget, beautiful.primary.hue_800),
+            separator,
+            wibox.container.background(cpu_widget, beautiful.primary.hue_800),
+            separator,
+            wibox.container.background(volume_widget, beautiful.primary.hue_800),
+            separator,
+            wibox.container.background(date_widget, beautiful.primary.hue_800),
+            separator,
+            wibox.container.background(clock_widget, beautiful.primary.hue_800),
             layout = wibox.layout.fixed.horizontal
         },
-        bg = beautiful.primary.hue_800,
+        bg = beautiful.primary.hue_900,
         widget = wibox.container.background
     }
 
@@ -69,7 +77,7 @@ local TopBar = function(s, offset)
     local panel = wibox({
         ontop = false,
         screen = s,
-        height = dpi(32),
+        height = dpi(24),
         width = s.geometry.width,
         x = s.geometry.x,
         y = s.geometry.y,
@@ -79,7 +87,7 @@ local TopBar = function(s, offset)
     })
 
     panel:struts({
-        top = dpi(32)
+        top = panel.height
     })
 
     panel:setup{
@@ -88,9 +96,7 @@ local TopBar = function(s, offset)
         TagList(s),
         task_list,
         wibox.widget {
-            wibox.container.margin(systray, dpi(4), dpi(4), dpi(4), dpi(4)),
-            battery_widget,
-            wibox.container.margin(system_details, dpi(2), dpi(2), dpi(5), dpi(5)),
+            wibox.container.margin(system_details, dpi(2), dpi(2), dpi(3), dpi(3)),
             LayoutBox(s),
             layout = wibox.layout.fixed.horizontal
         }
